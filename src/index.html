@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <title>App</title>
+
+    <!-- Font Awesome 5.15.4 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script type="module" src="/scripts/index.js"></script>
+  </head>
+  <body>
+    <header
+      class="fixed left-0 top-0 z-40 mx-auto flex h-[70px] w-full items-center border-b-4 border-border bg-white px-5"
+    >
+      <nav class="container mx-auto flex items-center justify-between py-2">
+        <a class="text-lg font-bold text-gray-800" href="#/">Ceritain</a>
+
+        <button
+          id="drawer-button"
+          class="text-2xl font-bold text-gray-900 lg:hidden cursor-pointer"
+        >
+          ☰
+        </button>
+
+        <ul
+          id="navigation-drawer"
+          class="fixed -right-[100%] top-0 z-50 translate-x-full transition-all ease-in-out duration-300 h-screen w-7/12 flex flex-col px-5 py-5 sm:w-3/12 lg:w-fit lg:flex-row lg:translate-x-0 lg:static lg:h-auto lg:px-0 lg:py-0 lg:bg-transparent lg:gap-5 gap-4 border-l-2 lg:border-l-0 border-border bg-background"
+        >
+          <li>
+            <a href="#/login" class="font-medium cursor-pointer hover:underline"
+              >Masuk</a
+            >
+          </li>
+          <li>
+            <a
+              href="#/register"
+              class="font-medium cursor-pointer hover:underline"
+              >Daftar</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content" class="min-h-[90svh]"></main>
+    <footer
+      class="border-t-4 border-border bg-white px-5 py-5 text-center sm:text-base text-sm"
+    >
+      Footer
+    </footer>
+  </body>
+</html>
