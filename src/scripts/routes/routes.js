@@ -5,9 +5,13 @@ import {
   checkAuthenticatedRoute,
   checkUnauthenticatedRouteOnly,
 } from "../utils/auth";
+import Detail from "../pages/detail/detail-page";
+import AddNewStory from "../pages/add-new-story/add-new-story-page";
 
 const routes = {
   "/": () => checkAuthenticatedRoute(new HomePage()),
+  "/story/:id": () => checkAuthenticatedRoute(new Detail()),
+  "/add-new-story": () => checkAuthenticatedRoute(new AddNewStory()),
 
   "/login": () => checkUnauthenticatedRouteOnly(new LoginPage()),
   "/register": () => checkUnauthenticatedRouteOnly(new RegisterPage()),

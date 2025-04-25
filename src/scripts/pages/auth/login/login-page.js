@@ -1,8 +1,7 @@
-import Toastify from "toastify-js";
-
 import LoginPresenter from "./login-presenter";
 import * as STORY_API from "../../../data/api";
 import * as AUTH_MODEL from "../../../utils/auth";
+import useToast from "../../../utils/toast";
 
 export default class LoginPage {
   #presenter = null;
@@ -53,20 +52,13 @@ export default class LoginPage {
   }
 
   loginSuccessfully(message, data) {
-    console.log({ message, data });
-    Toastify({
-      text: message,
-      duration: 3000,
-    }).showToast();
+    useToast(message, "success");
 
     location.hash = "/";
   }
 
   loginFailed(message) {
-    Toastify({
-      text: message,
-      duration: 3000,
-    }).showToast();
+    useToast(message, "error");
   }
 
   showSubmitLoadingButton() {

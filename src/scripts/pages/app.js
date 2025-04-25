@@ -5,17 +5,34 @@ import {
   generateNavigationUnauthenticated,
 } from "../components/templates";
 import { getAccessToken, getLogout } from "../utils/auth";
-import { transitionHelper } from "../utils";
+import { setupSkipToContent, transitionHelper } from "../utils";
 
 class App {
   #content;
   #drawerButton;
   #navigationDrawer;
+  #skipContent;
 
-  constructor({ navigationDrawer, drawerButton, content }) {
+  constructor({ navigationDrawer, drawerButton, content, skipContent }) {
     this.#content = content;
     this.#drawerButton = drawerButton;
     this.#navigationDrawer = navigationDrawer;
+    this.#skipContent = skipContent;
+
+    this.#init();
+  }
+
+  #init() {
+    setupSkipToContent(this.#skipContent, this.#content);
+
+    if (this.#navigationDrawer) {
+      this.#navigationDrawer.setAttribute("aria-hidden", "true");
+    }
+
+    if (this.#drawerButton) {
+      this.#drawerButton.setAttribute("aria-expanded", "false");
+      this.#drawerButton.setAttribute("aria-controls", "navigation-drawer");
+    }
 
     this.#setupDrawer();
   }
@@ -25,6 +42,27 @@ class App {
       this.#navigationDrawer?.classList.toggle("translate-x-full");
       this.#navigationDrawer?.classList.add("right-0");
       this.#navigationDrawer?.classList.remove("-right-[100%]");
+
+      const isExpanded =
+        !this.#navigationDrawer?.classList.contains("translate-x-full");
+      this.#drawerButton?.setAttribute("aria-expanded", String(isExpanded));
+
+      if (isExpanded) {
+        this.#navigationDrawer?.setAttribute("aria-hidden", "false");
+      } else {
+        this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+        this.#drawerButton?.focus();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const closeButton = document.getElementById("close-button");
+      if (closeButton && e.target === closeButton) {
+        this.#navigationDrawer?.classList.add("translate-x-full", "right-0");
+        this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+        this.#drawerButton?.setAttribute("aria-expanded", "false");
+        this.#drawerButton?.focus();
+      }
     });
 
     document.body.addEventListener("click", (e) => {
@@ -33,11 +71,15 @@ class App {
         !this.#drawerButton?.contains(e.target)
       ) {
         this.#navigationDrawer?.classList.add("translate-x-full", "right-0");
+        this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+        this.#drawerButton?.setAttribute("aria-expanded", "false");
       }
 
       this.#navigationDrawer?.querySelectorAll("a").forEach((link) => {
         if (link.contains(e.target)) {
           this.#navigationDrawer?.classList.add("translate-x-full", "right-0");
+          this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+          this.#drawerButton?.setAttribute("aria-expanded", "false");
         }
       });
     });
@@ -70,6 +112,31 @@ class App {
         }).showToast();
       }
     });
+
+    const focusableElements =
+      this.#navigationDrawer?.querySelectorAll("a, button") || [];
+
+    if (focusableElements.length > 0) {
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      lastElement.addEventListener("keydown", (event) => {
+        if (event.key === "Tab" && !event.shiftKey) {
+          this.#navigationDrawer?.classList.add("translate-x-full", "right-0");
+          this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+          this.#drawerButton?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const firstElement = focusableElements[0];
+
+      firstElement.addEventListener("keydown", (event) => {
+        if (event.key === "Tab" && event.shiftKey) {
+          this.#navigationDrawer?.classList.add("translate-x-full", "right-0");
+          this.#navigationDrawer?.setAttribute("aria-hidden", "true");
+          this.#drawerButton?.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
   }
 
   async renderPage() {
