@@ -18,8 +18,21 @@ export const generateNavigationAuthenticated = () => {
             >X</button>
         </li>
         <li><a class="block px-3 py-2 text-gray-800 hover:underline button-custom-neutral" href="#/add-new-story">Tambah Ceritamu</a></li>
+        <li id="action-push-notification"></li>
         <li><a id="logout-button" class="block px-3 py-2 text-gray-800 hover:underline w-fit" href="#/logout">Keluar</a></li>
     `;
+};
+
+export const generateSubscribeButtonTemplate = () => {
+  return `
+              <button id="subscribe-button" class="button-custom w-fit">Subscribe</button>
+          `;
+};
+
+export const generateUnsubscribeButtonTemplate = () => {
+  return `
+              <button id="unsubscribe-button" class="button-custom w-fit">Unsubscribe</button>
+          `;
 };
 
 export const generateCardStory = ({

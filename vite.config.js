@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import tailwindcss from "@tailwindcss/vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,5 +16,18 @@ export default defineConfig({
       "@": resolve(__dirname, "src"),
     },
   },
-  plugins: [tailwindcss()],
+  plugins: [
+    tailwindcss(),
+    VitePWA({
+      injectRegister: "auto",
+      registerType: "autoUpdate",
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
+      strategies: "injectManifest",
+      srcDir: "scripts",
+      filename: "sw.js",
+    }),
+  ],
 });

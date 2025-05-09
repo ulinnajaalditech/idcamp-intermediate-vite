@@ -80,3 +80,7 @@ export function transitionHelper({ skipTransition = false, updateDOM }) {
 
   return document.startViewTransition(updateDOM);
 }
+
+export function isServiceWorkerAvailable() {
+  return "serviceWorker" in navigator;
+}
