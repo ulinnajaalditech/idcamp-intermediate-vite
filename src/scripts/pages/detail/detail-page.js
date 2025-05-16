@@ -3,6 +3,8 @@ import DetailPresenter from "./detail-presenter";
 import * as STORY_API from "../../data/api";
 import { parseActivePathname } from "../../utils/url-parser";
 import { generatePopoutMap } from "../../components/templates";
+import Database from "../../utils/database";
+import useToast from "../../utils/toast";
 
 export default class Detail {
   #presenter;
@@ -25,6 +27,7 @@ export default class Detail {
     this.#presenter = new DetailPresenter(parseActivePathname().id, {
       view: this,
       model: STORY_API,
+      dbModel: Database,
     });
 
     await this.#presenter?.initialStory();
@@ -64,13 +67,20 @@ export default class Detail {
                     : ""
                 }
             </div>
-
+            <div class="col-span-12 flex items-center justify-between">
+                    <p class="text-sm md:text-base font-semibold">Aksi</p>
+                    <div id="action-container" class="flex gap-2 items-center justify-start flex-wrap">
+                        <button id="btn-action" class="button-custom-neutral">Bookmark Cerita</button>
+                    </div>
+                </div>
         </div>
     `;
 
     container.innerHTML = html;
 
     this.storeMarkerData(story);
+
+    await this.#presenter?.showSaveButton();
   }
 
   storeMarkerData(story) {
@@ -155,5 +165,34 @@ export default class Detail {
 
   hideLoading() {
     console.log("hideLoading");
+  }
+
+  renderActionButton(isSaved = false) {
+    const action = document.getElementById("btn-action");
+    if (!action) return;
+
+    const newButton = action.cloneNode(true);
+    action.parentNode?.replaceChild(newButton, action);
+
+    if (isSaved) {
+      newButton.innerText = "Hapus dari Bookmark";
+      newButton.addEventListener("click", async () => {
+        await this.#presenter?.removeStory();
+        await this.#presenter?.showSaveButton();
+      });
+    } else {
+      newButton.innerText = "Bookmark Cerita";
+      newButton.addEventListener("click", async () => {
+        await this.#presenter?.saveStory();
+        await this.#presenter?.showSaveButton();
+      });
+    }
+  }
+
+  saveToBookmarkSuccessfully(message) {
+    useToast(message, "success");
+  }
+  saveToBookmarkFailed(message) {
+    useToast(message, "error");
   }
 }

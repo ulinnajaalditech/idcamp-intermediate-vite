@@ -14,10 +14,10 @@ export default class HomePage {
   async render() {
     return `
         <section id="map-container" class="container mt-24 md:mt-28 lg:mt-32 2xl:mt-40;">
-        <div class="flex flex-col gap-1 items-center justify-center mb-5">
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center">Ceritain</h1>
-                <p class="text-sm sm:text-xl lg:text-2xl font-medium text-center">Ceritakan semua yang pengen kamu ceritakan!</p>
-        </div>
+            <div class="flex flex-col gap-1 items-center justify-center mb-5">
+                    <img src="./images/logo.svg" alt="Ceritain Logo" class="w-[140px] sm:w-[200px] lg:w-[240px]"/>
+                    <p class="text-sm sm:text-xl lg:text-2xl font-medium text-center">Ceritakan semua yang pengen kamu ceritakan!</p>
+            </div>
         <div id="map" class="h-64 md:h-96 w-full"></div>
         <div id="map-loading-container" class="hidden"></div>
         </section>

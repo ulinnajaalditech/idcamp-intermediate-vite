@@ -18,6 +18,7 @@ export const generateNavigationAuthenticated = () => {
             >X</button>
         </li>
         <li><a class="block px-3 py-2 text-gray-800 hover:underline button-custom-neutral" href="#/add-new-story">Tambah Ceritamu</a></li>
+        <li><a class="block px-3 py-2 text-gray-800 button-custom" href="#/bookmark-story">Bookmark Cerita</a></li>
         <li id="action-push-notification"></li>
         <li><a id="logout-button" class="block px-3 py-2 text-gray-800 hover:underline w-fit" href="#/logout">Keluar</a></li>
     `;

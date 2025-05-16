@@ -7,11 +7,13 @@ import {
 } from "../utils/auth";
 import Detail from "../pages/detail/detail-page";
 import AddNewStory from "../pages/add-new-story/add-new-story-page";
+import BookmarkStory from "../pages/bookmark-story/bookmark-story-page";
 
 const routes = {
   "/": () => checkAuthenticatedRoute(new HomePage()),
   "/story/:id": () => checkAuthenticatedRoute(new Detail()),
   "/add-new-story": () => checkAuthenticatedRoute(new AddNewStory()),
+  "/bookmark-story": () => checkAuthenticatedRoute(new BookmarkStory()),
 
   "/login": () => checkUnauthenticatedRouteOnly(new LoginPage()),
   "/register": () => checkUnauthenticatedRouteOnly(new RegisterPage()),

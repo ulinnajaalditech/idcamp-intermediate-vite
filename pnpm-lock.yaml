@@ -11,6 +11,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.4
         version: 4.1.5(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0))
+      idb:
+        specifier: ^8.0.3
+        version: 8.0.3
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -23,6 +26,15 @@ importers:
       tw-animate-css:
         specifier: ^1.2.5
         version: 1.2.9
+      workbox-cacheable-response:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-routing:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-strategies:
+        specifier: ^7.3.0
+        version: 7.3.0
     devDependencies:
       vite:
         specifier: ^6.2.0
@@ -1278,6 +1290,9 @@ packages:
 
   idb@7.1.1:
     resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
+
+  idb@8.0.3:
+    resolution: {integrity: sha512-LtwtVyVYO5BqRvcsKuB2iUMnHwPVByPCXFXOpuU96IZPPoPN6xjOGxZQ74pgSVVLQWtUOYgyeL4GE98BY5D3wg==}
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
@@ -3311,6 +3326,8 @@ snapshots:
       function-bind: 1.1.2
 
   idb@7.1.1: {}
+
+  idb@8.0.3: {}
 
   inflight@1.0.6:
     dependencies:

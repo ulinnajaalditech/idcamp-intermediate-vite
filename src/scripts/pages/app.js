@@ -17,6 +17,7 @@ import {
   subscribe,
   unsubscribe,
 } from "../utils/notification-helper";
+import NotFoundPage from "./notfound/not-found-page";
 
 class App {
   #content;
@@ -182,14 +183,16 @@ class App {
   async renderPage() {
     const url = getActiveRoute() || "/";
     const route = routes[url];
+    const routeExist = url && routes[url];
 
-    // Get page instance
-    const page = route();
+    const page = routeExist ? route() : new NotFoundPage();
 
     const transition = transitionHelper({
       updateDOM: async () => {
-        this.#content.innerHTML = await page.render();
-        page.afterRender();
+        if (this.#content) {
+          this.#content.innerHTML = await page.render();
+          page.afterRender();
+        }
       },
     });
 

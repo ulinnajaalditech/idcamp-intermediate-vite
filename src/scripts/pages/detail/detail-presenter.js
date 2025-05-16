@@ -4,11 +4,13 @@ export default class DetailPresenter {
   #storyId;
   #view;
   #model;
+  #dbModel;
 
-  constructor(storyId, { view, model }) {
+  constructor(storyId, { view, model, dbModel }) {
     this.#storyId = storyId;
     this.#view = view;
     this.#model = model;
+    this.#dbModel = dbModel;
   }
 
   async initialStory() {
@@ -37,5 +39,36 @@ export default class DetailPresenter {
     } finally {
       this.#view.hideLoading();
     }
+  }
+
+  async saveStory() {
+    try {
+      const data = await this.#model.getDetailStory(this.#storyId);
+      await this.#dbModel.putStory(data.story);
+
+      this.#view.saveToBookmarkSuccessfully("Success to save to bookmark");
+    } catch (error) {
+      console.error("saveStory: error:", error);
+      this.#view.saveToBookmarkFailed(error.message);
+    }
+  }
+
+  async removeStory() {
+    try {
+      await this.#dbModel.removeStory(this.#storyId);
+      this.#view.saveToBookmarkSuccessfully("Success to remove from bookmark");
+    } catch (error) {
+      console.error("removeStory: error:", error);
+      this.#view.saveToBookmarkFailed(error.message);
+    }
+  }
+
+  async showSaveButton() {
+    const isSaved = await this.#isStorySaved();
+    this.#view.renderActionButton(isSaved);
+  }
+
+  async #isStorySaved() {
+    return !!(await this.#dbModel.getStoryById(this.#storyId));
   }
 }
